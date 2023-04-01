@@ -69,7 +69,7 @@ func (h *officialHandler) ReqChatGPT(wrapMsg *msgdefine.TextMsg) (string, error)
 	// 失败重试
 	var err error
 	var chatMsg string
-	tryCount := 3
+	tryCount := 2
 	tmpCount := tryCount
 	for tmpCount > 0 {
 		chatMsg, err = h.completions(wrapMsg.FromUserName, wrapMsg.Content)
