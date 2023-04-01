@@ -1,0 +1,2 @@
+# wechatGPT
+wechat use chatgpt
