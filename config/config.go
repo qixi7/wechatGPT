@@ -7,6 +7,7 @@ import (
 )
 
 type ChatConfig struct {
+	ProxyUrl      string `json:"proxy_url"`       // 代理url
 	ApiKey        string `json:"api_key"`         // gtp apikey
 	HttpPort      int32  `json:"http_port"`       // 监听的http端口
 	EncryptToken  string `json:"encrypt_token"`   // 加密Token
@@ -22,7 +23,7 @@ func Get() *ChatConfig {
 func init() {
 	// 默认值
 	config = &ChatConfig{
-		HttpPort: 12000,
+		HttpPort: 80,
 	}
 	f, err := os.Open("config.json")
 	if err != nil {
