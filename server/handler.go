@@ -44,8 +44,8 @@ func sendWXMsg(w http.ResponseWriter, from, to, msg string) {
 
 func sendWXOne(w http.ResponseWriter, from, to, msg string) {
 	textRes := &msgdefine.TextRes{
-		ToUserName:   from,
-		FromUserName: to,
+		ToUserName:   to,
+		FromUserName: from,
 		CreateTime:   time.Now().Unix(),
 		MsgType:      "text",
 		Content:      msg,
@@ -63,8 +63,8 @@ func replyMsg(w http.ResponseWriter, r *http.Request) {
 	body, _ := ioutil.ReadAll(r.Body)
 	xmlMsg := msgdefine.ToTextMsg(body)
 
-	xlog.InfoF("[消息接收] Type: %s, From: %s, MsgId: %d, Content: %s",
-		xmlMsg.MsgType, xmlMsg.FromUserName, xmlMsg.MsgId, xmlMsg.Content)
+	xlog.InfoF("[消息接收] Type: %s, Event=%s, From: %s, To: %s, Content: %s",
+		xmlMsg.MsgType, xmlMsg.Event, xmlMsg.FromUserName, xmlMsg.ToUserName, xmlMsg.Content)
 
 	w.Header().Set("Content-Type", "application/xml; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
