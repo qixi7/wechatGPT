@@ -9,17 +9,18 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/qixi7/xlog"
 	"io/ioutil"
 	"net/http"
 	"strings"
 	"sync"
 	"time"
 	"wechatGPT/msgdefine"
+
+	"github.com/qixi7/xlog"
 )
 
 const baseUrl = "https://api.openai.com/v1/chat/completions"
-const maxHistory = 2
+const maxHistory = 0
 
 // 聊天历史记录
 var chatHistory = map[string][]MsgItem{}
@@ -148,6 +149,9 @@ func (h *officialHandler) completions(recver, msg string) (string, error) {
 }
 
 func dealChatHistory(recver, send, recv string) {
+	if maxHistory == 0 {
+		return
+	}
 	oneAsk := MsgItem{
 		Role:    "user",
 		Content: send,
